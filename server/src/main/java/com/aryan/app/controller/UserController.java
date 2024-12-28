@@ -25,8 +25,7 @@ public class UserController {
 
     @PostMapping("/users/create")
     public User createUser(@RequestBody User user) throws Exception {
-        if (user.getId() == 0 ||
-                user.getEmail() == null || user.getEmail().isEmpty() ||
+        if (user.getEmail() == null || user.getEmail().isEmpty() ||
                 user.getFirstName() == null || user.getFirstName().isEmpty() ||
                 user.getLastName() == null || user.getLastName().isEmpty() || user.getGender() == null
                 || user.getGender().isEmpty()) {
@@ -59,6 +58,7 @@ public class UserController {
 
     @PutMapping("/users/{userId}")
     public User updateUser(@PathVariable("userId") int id, @RequestBody User user) throws Exception {
+        user.setId(id);
         return userService.updateUser(user);
     }
 

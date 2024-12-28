@@ -40,10 +40,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public String deletePost(Integer postId, Integer userId) throws Exception {
         Post post = findPostById(postId);
+
         User user = userService.findUserById(userId);
 
         if (post.getUser().getId() != user.getId()) {
             throw new Exception("you can't delete anather user's post");
+        }
+
+        for (User u : userRepository.findAll()) {
+            if (u.getSavedPost().contains(post)) {
+                u.getSavedPost().remove(post);
+                userRepository.save(u);
+            }
         }
 
         postRepository.delete(post);

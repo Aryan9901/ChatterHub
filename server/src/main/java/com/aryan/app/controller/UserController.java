@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @AllArgsConstructor
@@ -35,39 +36,39 @@ public class UserController {
         return userService.registerUser(user);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users;
     }
 
-    @GetMapping("/users/search")
+    @GetMapping("/api/users/search")
     public List<User> searchUsers(String query) throws Exception {
         return userService.searchUsers(query);
     }
 
-    @GetMapping("/users/{userid}")
+    @GetMapping("/api/users/{userid}")
     public User getUserById(@PathVariable("userid") int id) throws Exception {
         return userService.findUserById(id);
     }
 
-    @GetMapping("/users/find/{email}")
+    @GetMapping("/api/users/find/{email}")
     public User getUserByEmail(@PathVariable String email) throws Exception {
         return userService.findUserByEmail(email);
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/api/users/{userId}")
     public User updateUser(@PathVariable("userId") int id, @RequestBody User user) throws Exception {
         user.setId(id);
         return userService.updateUser(user);
     }
 
-    @PutMapping("/users/{userId1}/{userId2}")
+    @PutMapping("/api/users/{userId1}/{userId2}")
     public User followUserHandler(@PathVariable Integer userId1, @PathVariable Integer userId2) throws Exception {
         return userService.followUser(userId1, userId2);
     }
 
-    @DeleteMapping("/users/{userid}")
+    @DeleteMapping("/api/users/{userid}")
     public String deleteUser(@PathVariable int userid) {
 
         if (!userRepository.existsById(userid)) {

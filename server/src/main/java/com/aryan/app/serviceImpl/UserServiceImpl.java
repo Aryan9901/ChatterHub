@@ -19,6 +19,13 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsById(user.getId())) {
             throw new Exception("user already exist!");
         }
+
+        var isUserExist = userRepository.findByEmail(user.getEmail());
+
+        if (isUserExist.isPresent()) {
+            throw new Exception("User Already Exist!");
+        }
+
         // Save new user
         User createdUser = userRepository.save(user);
         return createdUser;

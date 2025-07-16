@@ -8,9 +8,6 @@ import java.util.List;
 
 
 import org.springframework.stereotype.Service;
-
-
-
 import com.aryan.app.models.entity.Post;
 import com.aryan.app.models.entity.User;
 import com.aryan.app.repository.PostRepository;
